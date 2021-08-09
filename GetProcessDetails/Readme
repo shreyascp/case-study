@@ -1,0 +1,26 @@
+processdetails.bash contains to bash script to fetch top nth (In this case top 3rd) process consuming CPU and Memory.
+
+File Details: 
+
+    processdetails.bash: Script to fetch top 3rd mamory and CPU consuming process
+    top_out.txt: File generated during execution which contains contents obtained from executed top Commands
+    output.txt: File generated during execution and contains top third cpu and memory consuming process
+
+- More about output.txt: 
+    output.txt comprises of three lines 
+    First line will have headers for heach column in sequence PID (Process ID), Command (Process Command/Name), %CPU (Percent of CPU used), %MEM (Percent of memory used)
+    Second line will have details of a process which consumes third most CPU in sequence similar to above
+    Second line will have details of a process which consumes third most Memory in sequence similar to above
+
+
+Algorithm for solution:
+
+    Assumption Made: It is assumed that processes consuming third most CPU and Memory will not be same. So output will always have two Files
+
+    Steps: 
+        1. Get a snapshot of current processes using top command and dump the output in a file
+        2. By default top command sorts process in decending order of CPU consumption so retrieve the third process (Third most CPU consuming process) and append it in output file
+        3. Sort the contents of dump of top command based on percent memory consumption. 
+        4. Retrive the third process from sorted data (Third most CPU consuming process) and and append it in output file
+        5. Required process details are availble in output file. 
+

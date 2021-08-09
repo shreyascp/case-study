@@ -1,0 +1,27 @@
+This repository contains customized nginx app which displays information about Europs's Top Five Football Leagues
+
+Solution Implemented:
+
+    To mount all static webpages a configmap named "index-html-configmap" was created. This config map contains html script for required static web page.
+    To add customized config to nginx server a file named "custom_config.conf" is created and is mounted on nginx deployment config as configmap named "nginx-custom-config"
+    These two configmaps are mounted on nginx deployment named "nginx-deployment"
+    To end with, this application is exposed as NodePort via service name "nginx-service"
+    The service is exposed on port 30007 and can be accessed as http://localhost:30007 from browser. 
+
+Files Overview: 
+
+    custom_config.conf : Contains custom Nginx configuration
+    custom-html-data.yaml : Of type configmap and contains html script for static webpages
+    nginx-deployment.yaml: Template for deployment of nginx server with required mounts
+    nginx-service.yaml: Template for service exposed as NodePort to access Nginx server
+
+Commands Executed to Get the application running: 
+
+    create index-html-configmap:  kubectl apply -f custom-html-data.yaml
+    create custom config for nginx configmap: kubectl create configmap custom-nginx-config --from-file=./custom_config.conf
+    create nginx deployment: kubectl apply -f nginx-deployment.yaml
+    create service: kubectl apply -f nginx-service.yaml
+
+Please Note: The kubernetes cluster was setup using Kubernetes Setup built in Docker Desktop
+
+

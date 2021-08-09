@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: nginx-index-file
+            mountPath: /etc/nginx/html/
+          - name: nginx-index-file
+            mountPath: /etc/nginx/html/premierleague/
+          - name: nginx-index-file
+            mountPath: /etc/nginx/html/laliga/
+          - name: nginx-index-file
+            mountPath: /etc/nginx/html/bundesliga/
+          - name: nginx-index-file
+            mountPath: /etc/nginx/html/leagueone/
+          - name: nginx-index-file
+            mountPath: /etc/nginx/html/seriea/
+          - name: nginx-custom-config
+            mountPath: /etc/nginx/conf.d/custom_config.conf
+            subPath: custom_config.conf
+      volumes:
+        - name: nginx-index-file
+          configMap: 
+            name: index-html-configmap
+        - name: nginx-custom-config
+          configMap: 
+            name: custom-nginx-config
+
